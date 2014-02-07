@@ -1,0 +1,26 @@
+[33mcommit 0c851a8c48d88026265115913488c92f1bcfbb05[m
+Author: seconoid <seconoid@gmail.com>
+Date:   Fri Feb 7 15:27:27 2014 +0900
+
+    add words.
+
+[33mcommit 1e5282bf224ddbd200e833a8a04e86a27dce750a[m
+Merge: df3fe58 6cf1ae9
+Author: seconoid <seconoid@gmail.com>
+Date:   Fri Feb 7 12:37:39 2014 +0900
+
+    Merge pull request #1 from cignoir/pingpong
+    
+    Add ping-pong sample codes.
+
+[33mcommit 6cf1ae9f5e0f7d3f4065e6316b79c15434535988[m
+Author: cignoir <cignoir@gmail.com>
+Date:   Fri Feb 7 11:57:27 2014 +0900
+
+    Add ping-pong sample codes.
+
+[33mcommit df3fe58c9b9cf8bfe20e22ecdefc299de1ce1684[m
+Author: seconoid <seconoid@gmail.com>
+Date:   Fri Feb 7 11:48:36 2014 +0900
+
+    first commit
