@@ -1,16 +1,16 @@
 require 'rubygems'
 require 'skype'
 
-Skype.config :app_name => "my_skype_app"
+Skype.config :app_name => "seconoid"
 
-## send message
-Skype.message "secon6", "hello!!"
-
-## call
-#Skype.call "secon6"
-
-## get recent chat list
-puts Skype.search("secon6")
-
-## send message to group chat
-Skype.chatmessage "#name1/name2;$a1b2cdef3456", "hello chat!!"
+last_id = 0
+loop do
+  Skype.chats.each do |chat|
+    chat.messages.each do |m|
+      next unless last_id < m.id
+      chat.post "pong" if m.body.include? "ping"
+      last_id = m.id
+    end
+  end
+  sleep 1
+end
