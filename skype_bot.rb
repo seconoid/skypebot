@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'skype'
+require 'open-uri'
+require 'nokogiri'
 
 Skype.config :app_name => "seconoid"
 
@@ -18,7 +20,7 @@ loop do
       # chat
       drink = ["紅茶", "コーヒー", "アイスティー"].sample
 
-      if m.body =~ /ping/
+      if m.body =~ /^ping/
         chat.post "pong" 
       elsif m.body =~ /ありすさん/
         chat.post "はい。"
@@ -48,7 +50,19 @@ loop do
       end
 
       #title
+      if m.body.include? "http"
+        url = m.body
 
+        charset = nil
+        html = open(url) do |f|
+          charset = f.charset
+          f.read
+        end
+
+        doc = Nokogiri::HTML.parse(html, nil, charset)
+
+        chat.post "Title: #{doc.title}"
+      end
 
       last_id = m.id
     end
