@@ -2,6 +2,7 @@ require 'rubygems'
 require 'skype'
 require 'open-uri'
 require 'nokogiri'
+require 'uri'
 
 Skype.config :app_name => "seconoid"
 
@@ -56,17 +57,18 @@ loop do
 
       #title
       if m.body.include? "http"
-        url = m.body
+        URI.extract(m.body, ["http", "https"]).each do |uri|
+          url = uri.to_s
+          charset = nil
+          html = open(url) do |f|
+            charset = f.charset
+            f.read
+          end
+          
+          doc = Nokogiri::HTML.parse(html, nil, charset)
 
-        charset = nil
-        html = open(url) do |f|
-          charset = f.charset
-          f.read
+          chat.post "Title: #{doc.title}"
         end
-
-        doc = Nokogiri::HTML.parse(html, nil, charset)
-
-        chat.post "Title: #{doc.title}"
       end
 
       #coin
