@@ -33,6 +33,10 @@ loop do
         chat.post "気をつけてください。"
       elsif m.body =~ /喉が渇きました/
         chat.post "#{drink}をお淹れしますね。"
+      elsif m.body =~ /嘆き147配置/
+        chat.post "http://textage.cc/score/13/_nageki.html?1AC04R0257631401234567=11~59-62"
+      elsif m.body =~ /おやすみなさい/
+        chat.post "おやすみなさい。しっかり寝てね。"
       end
      
       # time
