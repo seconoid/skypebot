@@ -64,7 +64,7 @@ loop do
             charset = f.charset
             f.read
           end
-          
+
           doc = Nokogiri::HTML.parse(html, nil, charset)
 
           chat.post "Title: #{doc.title}"
@@ -77,6 +77,16 @@ loop do
       end
 
       last_id = m.id
+
+      #in English
+      if m.body =~ /^alice\s?what\s?meaning\s?of\s?"[a-z].*"$/
+        m.body.scan(/".*"/).each do |str|
+          str.scan(/[a-z]+[a-z]/).each do |ward|
+            chat.post "http://ejje.weblio.jp/content/#{ward.to_s}"
+          end
+        end
+      end
+
     end
   end
   sleep 1
