@@ -40,17 +40,17 @@ loop do
       end
      
       # time
-      if m.body =~ /^alice?\s?plz?\s?current?\s?time$/
+      if m.body =~ /^alice\s?plz\s?current\s?time$/
         chat.post Time.now
       end 
 
       # id
-      if m.body =~ /^alice?\s?plz?\s?id$/
+      if m.body =~ /^alice\s?plz\s?id$/
         chat.post m.id
       end
 
       #dice
-      if m.body =~ /^alice?\s?plz?\s?dice$/
+      if m.body =~ /^alice\s?plz\s?dice$/
         chat.post Random.rand(6) + 1
       end
 
@@ -70,7 +70,7 @@ loop do
       end
 
       #coin
-      if m.body =~ /^alice?\s?plz?\s?coin$/
+      if m.body =~ /^alice\s?plz\s?coin$/
         chat.post "#{coin} です。"
       end
 
