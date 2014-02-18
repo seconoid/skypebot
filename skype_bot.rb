@@ -19,6 +19,7 @@ loop do
 
       # chat
       drink = ["紅茶", "コーヒー", "アイスティー"].sample
+      coin = ["裏", "表"].sample
 
       if m.body =~ /^ping/
         chat.post "pong" 
@@ -62,6 +63,11 @@ loop do
         doc = Nokogiri::HTML.parse(html, nil, charset)
 
         chat.post "Title: #{doc.title}"
+      end
+
+      #coin
+      if m.body =~ /^alice?\s?plz?\s?coin$/
+        chat.post "#{coin} です。"
       end
 
       last_id = m.id
