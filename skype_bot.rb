@@ -19,9 +19,6 @@ loop do
       next unless Time.now.to_i - last_time < hearing_threshold
 
       # chat
-      drink = ["紅茶", "コーヒー", "アイスティー"].sample
-      coin = ["裏", "表"].sample
-
       if m.body =~ /^ping/
         chat.post "pong" 
       elsif m.body =~ /ありすさん/
@@ -32,14 +29,18 @@ loop do
         chat.post "蹴っ飛ばしますよ。" 
       elsif m.body =~ /ごめんなさい/
         chat.post "気をつけてください。"
-      elsif m.body =~ /喉が渇きました/
-        chat.post "#{drink}をお淹れしますね。"
       elsif m.body =~ /嘆き147配置/
         chat.post "http://textage.cc/score/13/_nageki.html?1AC04R0257631401234567=11~59-62"
       elsif m.body =~ /おやすみなさい/
         chat.post "おやすみなさい。しっかり寝てね。"
       end
-     
+
+      # drink
+      drink = ["紅茶", "コーヒー", "アイスティー"].sample
+      if m.body =~ /喉が渇きました/
+        chat.post "#{drink}をお淹れしますね。"
+      end
+
       # time
       if m.body =~ /^alice\s?plz\s?current\s?time$/
         chat.post Time.now
@@ -50,12 +51,12 @@ loop do
         chat.post m.id
       end
 
-      #dice
+      # dice
       if m.body =~ /^alice\s?plz\s?dice$/
         chat.post Random.rand(6) + 1
       end
 
-      #title
+      # title
       if m.body.include? "http"
         URI.extract(m.body, ["http", "https"]).each do |uri|
           url = uri.to_s
@@ -71,14 +72,14 @@ loop do
         end
       end
 
-      #coin
+      # coin
+      coin = ["裏", "表"].sample
+
       if m.body =~ /^alice\s?plz\s?coin$/
         chat.post "#{coin} です。"
       end
 
-      last_id = m.id
-
-      #in English
+      # in English
       if m.body =~ /^alice\s?what\s?meaning\s?of\s?"[a-z].*"$/
         m.body.scan(/".*"/).each do |str|
           str.scan(/[a-z]+[a-z]/).each do |ward|
@@ -86,6 +87,8 @@ loop do
           end
         end
       end
+
+      last_id = m.id
 
     end
   end
