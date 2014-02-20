@@ -79,12 +79,10 @@ loop do
         chat.post "#{coin} です。"
       end
 
-      # in English
+      # English to Japanese
       if m.body =~ /^alice\s?what\s?meaning\s?of\s?"[a-z].*"$/
-        m.body.scan(/".*"/).each do |str|
-          str.scan(/[a-z]+[a-z]/).each do |ward|
-            chat.post "http://ejje.weblio.jp/content/#{ward.to_s}"
-          end
+        /"([a-z]+)"/.match(m.body).captures.each do |word|
+          chat.post "http://ejje.weblio.jp/content/#{word}"
         end
       end
 
