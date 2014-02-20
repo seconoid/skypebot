@@ -59,7 +59,7 @@ loop do
       # title
       if m.body.include? "http"
         URI.extract(m.body, ["http", "https"]).each do |uri|
-          url = uri.to_s
+          url = uri
           charset = nil
           html = open(url) do |f|
             charset = f.charset
@@ -68,7 +68,12 @@ loop do
 
           doc = Nokogiri::HTML.parse(html, nil, charset)
 
-          chat.post "Title: #{doc.title}"
+          if doc.title.strip.size.zero?
+            chat.post "couldn't get title, sorry."
+          else
+            chat.post "Title: #{doc.title}" 
+          end
+
         end
       end
 
