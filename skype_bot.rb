@@ -85,7 +85,7 @@ loop do
       end
 
       # English to Japanese
-      if m.body =~ /^alice\s?what\s?meaning\s?of\s?"[a-z].*"$/
+      if m.body =~ /^alice\s?what\s?meaning\s?of\s?"[a-zA-Z].+"$/
         /"([a-z]+)"/.match(m.body).captures.each do |word|
           chat.post "http://ejje.weblio.jp/content/#{word}"
         end
