@@ -87,7 +87,17 @@ loop do
       # English to Japanese
       if m.body =~ /^alice\s?what\s?meaning\s?of\s?"[a-zA-Z]+"$/
         /"([a-zA-Z]+)"/.match(m.body).captures.each do |word|
-          chat.post "http://ejje.weblio.jp/content/#{word}"
+          uri = open("http://ejje.weblio.jp/content/#{word}").read
+
+          str = uri.gsub(/^(?!.*【).+$/, "").gsub(/^(?!<meta.+?>).+$/, "")
+          
+          if str.strip.size.zero?
+            chat.post "couldn't translation, sorry."
+          else
+            str.match(/^.+?(【.[^.]+).*$/).captures.each do |word|
+              chat.post word
+            end
+          end
         end
       end
 
